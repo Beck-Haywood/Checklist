@@ -1,3 +1,4 @@
+#Checklist
 checklist = list()
 
 # CREATE
@@ -34,9 +35,8 @@ def list_all_items():
         index += 1
         
 #COMPLETE
-def mark_completed(index, item):
-    checklist.append("√" + index)
-    update(index, item)
+def mark_completed(index):
+    update(index, "{} {}".format("√", read(index)))
 def user_input(prompt):
     # the input function will display a message in the terminal
     # and wait for user input.
@@ -62,6 +62,9 @@ def select(function_code):
         input_item = user_input("Add the item you want to update")
         input_index = int(user_input("Add the index to add"))
         update(input_index, input_item)
+    elif function_code == "X":
+        input_index = int(user_input("Add the index of the item you want to check off!"))
+        mark_completed(input_index)
     elif function_code == "D":
         input_index = int(user_input("Add the index of the item you want to destroy!"))
         destroy(input_index)
@@ -88,6 +91,8 @@ def test():
 
     list_all_items()
 
+    #mark_completed(0)
+
     select("C")
     # View the results
     list_all_items()
@@ -98,11 +103,11 @@ def test():
     # Continue until all code is run
 
 #Run the Tests
-test()
+#test()
 
 running = True
 while running:
     selection = user_input(
-        "Press C to add to list, R to Read from list, P to display list,Q to quit, U to update, and D to destroy.")
+        "Press C to add to list, R to Read from list, P to display list,Q to quit, U to update, D to destroy, and X to check something off the list.")
     running = select(selection)
 
